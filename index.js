@@ -22,8 +22,8 @@ app.get('/historyCollection', function (req, res) {
     res.json(historyCollection.collection);
 });
 
-http.listen(80, function () {
-    console.log('listen *:80');
+http.listen(3000, function () {
+    console.log('listen *:3000');
 });
 
 io.set('transports', ['websocket']);
