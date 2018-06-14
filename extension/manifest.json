@@ -1,0 +1,33 @@
+{
+  "name": "BTC_socket_bot",
+  "description": "Listen <source> socket and send data to server",
+  "version": "1.0",
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "permissions": [
+    "https://*/*",
+    "tabs"
+  ],
+  "web_accessible_resources": [
+    "script.js"
+  ],
+  "browser_action": {
+    "default_title": "Run!"
+  },
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*"],
+      "run_at": "document_end",
+      "js": ["contentScript.js"]
+    }
+  ],
+  "manifest_version": 2,
+  "run_at": "document_end"
+}

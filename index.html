@@ -1,0 +1,418 @@
+<!doctype html>
+<html>
+<head>
+    <title>BTC Bot Viewer</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:700" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto Slab', serif;
+            color: #333;
+            font-size: 18px;
+        }
+
+        body {
+            padding: 0px 20px;
+            width: 90%;
+            max-width: 1080px;
+        }
+
+        .sentiment {
+            font-size: 20px;
+        }
+
+        .sentiment h4 {
+            margin-top: 0;
+        }
+
+        #sentiment {
+            font-family: 'Nanum Gothic Coding', monospace;
+            color: #808080;
+            font-size: 152px;
+        }
+
+        #dir {
+            font-weight: bold;
+            color: #808080";
+        }
+
+        a, a:visited {
+            color: #4080f0;
+        }
+
+        a:hover {
+            color: #40a0ff;
+        }
+
+        .clearfix {
+            clear: both;
+            display: block;
+        }
+
+        .hbar {
+            width: 3.2em;
+            height: 0.2em;
+            background: #5090ff;
+        }
+
+        h1 + .hbar {
+            margin-top: 0.5em;
+            width: 6.8em;
+            height: 0.3em;
+            margin-bottom: 2em;
+        }
+
+        h2 + .hbar {
+            margin-top: 0.5em;
+            margin-bottom: 2em;
+            width: 3.2em;
+        }
+
+        /*
+        h1 {
+            font-size: 52px;
+            color: #444;
+        }
+
+        h2 {
+            font-size: 32px;
+            color: #444;
+            margin-top: 2em;
+        }
+
+        h3 {
+            font-size: 28px;
+            color: #444;
+        }
+
+        h4 {
+            font-size: 24px;
+            color: #444;
+        }
+
+
+        h5 {
+            font-size: 22px;
+            color: #444;
+        }
+
+        h6 {
+            font-size: 15px;
+            color: #444;
+        }
+        */
+
+        p {
+            margin-top: 0;
+            margin-bottom: 1em;
+            text-align: justify;
+        }
+
+
+        h2 + p, h3 + p, h4 + p, h5 + p, h6 + p {
+            /*    margin-top: -0.5em;*/
+        }
+
+        .menu {
+            margin: 1em 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .menu li {
+            margin: 0 1em 0 0;
+            padding: 0;
+            float: left;
+        }
+
+        .menu:after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        footer {
+            border-top: 1px solid #aaa;
+            margin-top: 3em;
+            padding: 1em 0;
+            color: #666;
+        }
+
+        .sentiment {
+            font-size: 20px;
+        }
+
+        .sentiment h4 {
+            margin-top: 0;
+        }
+
+        #sentiment {
+            font-family: 'Nanum Gothic Coding', monospace;
+            color: #808080;
+            font-size: 152px;
+        }
+
+        #dir {
+            font-weight: bold;
+            color: #808080";
+        }
+
+        /* Cookie Dialog */
+        :root {
+            --purple: #3B3646;
+            --red: #EE4B5A;
+        }
+
+        #gdpr-cookie-message {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            max-width: 375px;
+            background-color: var(--purple);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 6px 6px rgba(0,0,0,0.25);
+            margin-left: 30px;
+            font-family: system-ui;
+        }
+        #gdpr-cookie-message h4 {
+            color: var(--red);
+            font-family: 'Quicksand', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        #gdpr-cookie-message h5 {
+            color: var(--red);
+            font-family: 'Quicksand', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        #gdpr-cookie-types label {
+            font-weight: 400;
+        }
+        #gdpr-cookie-message p, #gdpr-cookie-message ul {
+            color: white;
+            font-size: 15px;
+            line-height: 1.5em;
+        }
+        #gdpr-cookie-message p:last-child {
+            margin-bottom: 0;
+            text-align: right;
+        }
+        #gdpr-cookie-message li {
+            width: 45%;
+            display: inline-block;
+        }
+        #gdpr-cookie-message a {
+            color: var(--red);
+            text-decoration: none;
+            font-size: 15px;
+            padding-bottom: 2px;
+            border-bottom: 1px dotted rgba(255,255,255,0.75);
+            transition: all 0.3s ease-in;
+        }
+        #gdpr-cookie-message a:hover {
+            color: white;
+            border-bottom-color: var(--red);
+            transition: all 0.3s ease-in;
+        }
+        #gdpr-cookie-message button {
+            border: none;
+            background: var(--red);
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 15px;
+            padding: 7px;
+            border-radius: 3px;
+            margin-left: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease-in;
+        }
+        #gdpr-cookie-message button:hover {
+            background: white;
+            color: var(--red);
+            transition: all 0.3s ease-in;
+        }
+        button#gdpr-cookie-advanced {
+            background: white;
+            color: var(--red);
+        }
+        #gdpr-cookie-message button:disabled {
+            opacity: 0.3;
+        }
+        #gdpr-cookie-message input[type="checkbox"] {
+            float: none;
+            margin-top: 0;
+            margin-right: 5px;
+        }
+        #gdpr-cookie-message ul {
+            font-size: 12px;
+        }
+    </style>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        var plot_created = false;
+
+        function get_color(value) {
+            if (value > 5)
+                return '#008000';
+            else if (value < -5)
+                return '#800000';
+            else
+                return '#a0a0a0';
+        }
+
+        var socket = io('//' + document.domain + ':' + location.port, {
+            "transports" : ["websocket"]
+        });
+        socket.on('connect', function() {
+            console.log('Connected');
+        });
+        socket.on('disconnect', function(){
+            console.log('Disconnected');
+        });
+        socket.on('getData', function(msg){
+            if (msg.s === null) {
+                $("#dir").html("n/a").css({color: "#808080"});
+                $("#sentiment").html("n/a").css({color: "#808080"});
+            }
+            else {
+                if (msg.s > 0) {
+                    msg.s = "+" + msg.s;
+                }
+                else if (msg.s == 0) {
+                    msg.s = '\xa00\xa0';
+                }
+                $("#sentiment").html( ('\xa0\xa0\xa0' + msg.s).slice(-3)).css({color: get_color(msg.s)});
+                if (msg.s > 5)
+                    $("#dir").html("UP");
+                else if (msg.s < -5)
+                    $("#dir").html("DOWN");
+                else
+                    $("#dir").html("FLAT");
+                $("#dir").css({color: get_color(msg.s)});
+                dt.push(new Date(1000*msg.dt)); dt.shift();
+                price.push(msg.p); price.shift();
+                sentiment.push(msg.s); sentiment.shift();
+            }
+        });
+
+        function open_informer() {
+            informer = window.open("/informer","name","width=680,height=440");
+            if (window.focus) {
+                informer.focus();
+            }
+            return false;
+        }
+    </script>
+    <script>
+        var price = [], dt = [], sentiment = [];
+        var data = [];
+
+        function prepare_data() {
+            var trace1 = {
+                x: dt,
+                y: price,
+                type: 'scatter',
+                mode: 'lines',
+                color: 'gray',
+                name: 'BTC/USD',
+                line: {
+                    color: 'rgb(150, 150, 150)',
+                    width: 2
+                }
+            };
+            var trace2 = {
+                x: dt,
+                y: price,
+                text: sentiment,
+                hoverinfo: 'text',
+                type: 'scattergl',
+                mode: 'markers',
+                name: 'Sentiment',
+                marker: {
+                    size: 5,
+                    color: sentiment,
+                    cmin: -100,
+                    cmax: 100,
+                    colorscale: [
+                        [0, 'rgb(140,10,5)'],
+                        [0.35, 'rgb(220,90,40)'],
+                        [0.5, 'rgb(220,220,220)'],
+                        [0.65, 'rgb(80,220,30)'],
+                        [1, 'rgb(5,140,10)']
+                    ]
+                }
+            };
+            var data = [trace1, trace2];
+            return data;
+        }
+
+
+        $.getJSON("/historyCollection", function(res) {
+            for (var r in res) {
+                price.push(res[r].p);
+                dt.push(new Date(1000*res[r].dt));
+                sentiment.push(res[r].s);
+            }
+            data = prepare_data();
+            var layout = {
+                margin: {
+                    l: 50, r: 5, b: 50, t: 5, pad: 0
+                },
+                showlegend: false,
+                yaxis: { fixedrange: true }
+            };
+            Plotly.newPlot('plot', data, layout, {displayModeBar: false});
+            var minuteView = {
+                xaxis: {
+                    fixedrange: true,
+                    type: 'date',
+                    range: [dt[0], dt[dt.length-1]]
+                }
+            };
+            Plotly.relayout('plot', minuteView);
+            plot_created = true;
+            setInterval(function() {
+                if (plot_created) {
+                    var minuteView = {
+                        xaxis: {
+                            type: 'date',
+                            range: [dt[0], dt[dt.length-1]],
+                            fixedrange: true
+                        }
+                    };
+                    Plotly.relayout('plot', minuteView);
+                }
+            }, 3000);
+        });
+
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="row" style="width: 100%">
+        <div class="col-md-8" style="height:400px" id="plot"></div>
+        <div class="col-md-4">
+            <div class="sentiment" style="margin-top: 50px">
+                <h4 style='text-align: center; margin-bottom: 0px; padding-bottom: 0px'>Sentiment</h4>
+                <div id="sentiment" style='text-align: center'>&nbsp;&nbsp;&nbsp;</div>
+                <div style='text-align: center'>Prediction: <span id="dir" style="font-weight: bold"></span></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <p style="font-size: 95%">AI predictions are marked with <span style="color:#00a000">green</span> for growth, <span style="color:#a00000">red</span> for decline and transparent for flat.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
